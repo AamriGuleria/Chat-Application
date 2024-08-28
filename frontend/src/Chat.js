@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import "./App.css"
-// import FileUpload from './FileUpload';
-// import io from "socket.io-client"
-// import {useNavigate,Router} from "react-router-dom";
 import ScrollToBottom from "react-scroll-to-bottom"
 import Picker from 'emoji-picker-react';
 const Chat = ({ socket, username, room, bitmoji }) => {
@@ -11,6 +8,7 @@ const Chat = ({ socket, username, room, bitmoji }) => {
   const [liveUsers,setLiveUsers]=useState([])
   const [showPicker,setShowPicker]=useState(false);
   const sendMessage = async () => {
+    
     if (message !== "") {
       var today = new Date().toLocaleString("en-US", {
         hour: "numeric",
@@ -60,7 +58,7 @@ const Chat = ({ socket, username, room, bitmoji }) => {
       
         <div className="main-container">
           <div className="heading">
-            <h4>Your Chat</h4>
+            <h4>ChatSphere</h4>
           </div>
           <div className="your-chat">
             <ScrollToBottom className="my-chat">

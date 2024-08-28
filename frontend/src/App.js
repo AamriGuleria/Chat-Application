@@ -8,7 +8,7 @@ function App() {
   const [username,setusername]=useState("")
   const [room,setroom]=useState("")
   const [link,setlink]=useState("https://cdn.vectorstock.com/i/1000x1000/11/72/outline-profil-user-or-avatar-icon-isolated-vector-35681172.webp")
-  const Hello=()=>{
+  const HandleSelection=()=>{
     if(username!==""&&room!==""){
       socket.emit("join_room",room,username,link);
       setstate(true);
@@ -25,9 +25,9 @@ function App() {
       <div className='log'>
       <center>
       <div className="joinChat">
-      <p className="heading1">Let's Have A Chat!</p>
-      <input type="text" id="input-name" onChange={(e)=>setusername(e.target.value)} placeholder="Your Name..." maxlength="10" required pattern="[a-zA-Z][a-zA-Z\s]*" />
-      <input type="text" id="input-room" onChange={(e)=>setroom(e.target.value)} placeholder="Room Id..."/>
+      <p className="heading1">ChatSphere</p>
+      <input type="text" id="input-name" onChange={(e)=>setusername(e.target.value)} placeholder="Your Name..." maxlength="10" required />
+      <input type="text" id="input-room" onChange={(e)=>setroom(e.target.value)} placeholder="Room Id..." required/>
       <div className="grid">
         <h4>Select a bitmoji</h4>
         <center>
@@ -39,7 +39,7 @@ function App() {
         <img src="http://clipart-library.com/image_gallery/269381.jpg" className="emoji" width="45px" height="45px" onClick={()=>setMoji("http://clipart-library.com/image_gallery/269381.jpg")}></img>
         </center>
       </div>
-      <button className="submit" onClick={Hello}>Join The Room</button>
+      <button className="submit" onClick={HandleSelection}>Join The Room</button>
     </div>
     </center>
     </div>)
