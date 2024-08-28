@@ -4,7 +4,8 @@ const http=require("http")
 const cors=require("cors")
 const {Server} =require("socket.io")
 
-app.use(cors)
+//enable CORS for all routes
+app.use(cors())
 
 const server=http.createServer(app)
 
