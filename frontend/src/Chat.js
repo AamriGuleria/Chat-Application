@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react'
 import "./App.css"
 import ScrollToBottom from "react-scroll-to-bottom"
 import Picker from 'emoji-picker-react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Chat = ({ socket, username, room, bitmoji }) => {
   const [message, setmessage] = useState("")
   const [messagelist, setmessagelist] = useState([])
   const [liveUsers,setLiveUsers]=useState([])
   const [showPicker,setShowPicker]=useState(false);
+  const Sound=new Audio('/notification-pretty-good.mp3')
   const sendMessage = async () => {
     
     if (message !== "") {
@@ -27,6 +30,11 @@ const Chat = ({ socket, username, room, bitmoji }) => {
       setmessage("")
     }
   }
+  const handleNotification = (text) => {
+    Sound.play();
+    toast.info(text);
+  };
+
   useEffect(() => {
     const handleReceiveData = (data) => {
       setmessagelist((list) => [...list, data]);
@@ -40,7 +48,7 @@ const Chat = ({ socket, username, room, bitmoji }) => {
     // Set up socket event listeners
     socket.on("receive_data", handleReceiveData);
     socket.on("live-users", handleLiveUsers);
-
+    socket.on("user_notification",handleNotification)
     // Clean up event listeners on component unmount or when socket changes
     return () => {
       socket.off("receive_data", handleReceiveData);
@@ -55,7 +63,7 @@ const Chat = ({ socket, username, room, bitmoji }) => {
   return (
     <center>
       <div className="whole">
-      
+      <ToastContainer />
         <div className="main-container">
           <div className="heading">
             <h4>ChatSphere</h4>

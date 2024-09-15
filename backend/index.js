@@ -26,10 +26,12 @@ io.on("connection",(socket)=>{
         }
         rooms[room].push({id:socket.id,username,link});
         io.to(room).emit("live-users",rooms[room].map(user=>user.username))
+        io.to(room).emit("user_notification",`${username} has joined the room`)
     })
     socket.on("send_data",(data)=>{ 
         console.log(data)
         socket.to(data.room).emit("receive_data",data)
+
     })
     socket.on("disconnect",()=>{
         for(const room in rooms){
