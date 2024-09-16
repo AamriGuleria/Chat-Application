@@ -10,8 +10,9 @@ const Chat = ({ socket, username, room, bitmoji }) => {
   const [liveUsers,setLiveUsers]=useState([])
   const [showPicker,setShowPicker]=useState(false);
   const Sound=new Audio('/notification-pretty-good.mp3')
+  const send=new Audio('/send.wav')
+  const receive=new Audio('/receive.mp3')
   const sendMessage = async () => {
-    
     if (message !== "") {
       var today = new Date().toLocaleString("en-US", {
         hour: "numeric",
@@ -28,6 +29,7 @@ const Chat = ({ socket, username, room, bitmoji }) => {
       await socket.emit("send_data", option);
       setmessagelist((list) => [...list, option])
       setmessage("")
+      send.play();
     }
   }
   const handleNotification = (text) => {
@@ -38,6 +40,7 @@ const Chat = ({ socket, username, room, bitmoji }) => {
   useEffect(() => {
     const handleReceiveData = (data) => {
       setmessagelist((list) => [...list, data]);
+      receive.play();
     };
 
     // Handler for live users update
