@@ -8,16 +8,14 @@ const {Server} =require("socket.io")
 app.use(cors())
 
 const server=http.createServer(app)
-
-const io=new Server(server,
-    {
-        cors:{
-            origin:"https://chat-application-frontend-9oek.onrender.com/",
-            credentials: true,
-            methods:["GET","POST"]
-        }
+const io = new Server(server, {
+    cors: {
+        origin: "https://chat-application-frontend-9oek.onrender.com",
+        credentials: true,
+        methods: ["GET", "POST"]
     }
-    )
+});
+
     //service when / route is hit 
     app.get("/", (req, res) => {
         res.send("Welcome to the chat application backend! Socket.io server is running.");

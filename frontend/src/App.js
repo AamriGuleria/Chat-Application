@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState } from 'react';
 import io from "socket.io-client"
 import Chat from "./Chat.js"
-const socket=io.connect("https://chat-application-backend-ipic.onrender.com:10000/")
+const socket=io.connect("https://chat-application-backend-ipic.onrender.com:10000/");
 function App() {
   const [state,setstate]=useState(false)
   const [username,setusername]=useState("")
