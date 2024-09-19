@@ -17,9 +17,11 @@ const io=new Server(server,
         }
     }
     )
+    //service when / route is hit 
     app.get("/", (req, res) => {
         res.send("Welcome to the chat application backend! Socket.io server is running.");
       });
+
     const rooms={};
 io.on("connection",(socket)=>{
     socket.on("join_room",(room,username,link)=>{
