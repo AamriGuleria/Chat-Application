@@ -14,7 +14,6 @@ const io=new Server(server,
         cors:{
             origin:"https://chat-application-frontend-9oek.onrender.com/",
             credentials: true,
-            allowedHeaders: ["Content-Type", "Authorization"],
             methods:["GET","POST"]
         }
     }
@@ -53,5 +52,5 @@ io.on("connection",(socket)=>{
         console.log("user disconnected",socket.id)
     })
 })
-const port = process.env.PORT || 3001;
-server.listen(port,()=>{console.log("server running")})
+const port = process.env.PORT || 10000;
+server.listen(port,()=>{console.log(`server running at port ${port}`)})
