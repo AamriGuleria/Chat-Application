@@ -57,7 +57,7 @@ const Chat = ({ socket, username, room, bitmoji }) => {
       socket.off("receive_data", handleReceiveData);
       socket.off("live-users", handleLiveUsers);
     };
-  }, [])
+  }, [handleNotification, receive, socket])
 
   const emoji=(event,emojiObject)=>{
     setmessage(prev=>prev+event.emoji);
