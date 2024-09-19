@@ -13,6 +13,8 @@ const io=new Server(server,
     {
         cors:{
             origin:"https://chat-application-frontend-9oek.onrender.com/",
+            credentials: true,
+            allowedHeaders: ["Content-Type", "Authorization"],
             methods:["GET","POST"]
         }
     }
