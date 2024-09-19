@@ -32,10 +32,6 @@ const Chat = ({ socket, username, room, bitmoji }) => {
       send.play();
     }
   }
-  const handleNotification = (text) => {
-    Sound.play();
-    toast.info(text);
-  };
 
   useEffect(() => {
     const handleReceiveData = (data) => {
@@ -47,7 +43,10 @@ const Chat = ({ socket, username, room, bitmoji }) => {
     const handleLiveUsers = (usernames) => {
       setLiveUsers(usernames);
     };
-
+    const handleNotification = (text) => {
+      Sound.play();
+      toast.info(text);
+    };
     // Set up socket event listeners
     socket.on("receive_data", handleReceiveData);
     socket.on("live-users", handleLiveUsers);
@@ -56,8 +55,9 @@ const Chat = ({ socket, username, room, bitmoji }) => {
     return () => {
       socket.off("receive_data", handleReceiveData);
       socket.off("live-users", handleLiveUsers);
+      socket.off("user_notification", handleNotification);
     };
-  }, [handleNotification, receive, socket])
+  }, [socket])
 
   const emoji=(event,emojiObject)=>{
     setmessage(prev=>prev+event.emoji);
@@ -79,7 +79,7 @@ const Chat = ({ socket, username, room, bitmoji }) => {
                     <>
                       <div id={username === ele.author ? "its-me" : "its-you"}>
                         <div className="pic">
-                          <img src={ele.link} width="20px" height="20px" className="pick"></img>
+                          <img src={ele.link} width="20px" height="20px" className="pick" alt="User's avatar" ></img>
                         </div>
                         <div>
                           {ele.context}
@@ -96,7 +96,7 @@ const Chat = ({ socket, username, room, bitmoji }) => {
             </ScrollToBottom>
           </div>
           <div className="footer">
-          <img className="emoji-icon" src="https://img.freepik.com/free-photo/3d-rendering-emotions_23-2149081943.jpg?w=996&t=st=1693915752~exp=1693916352~hmac=520b6ba6a60c01a082f1b6a721e67b2ac3ba1783e243aedbad92d8f2a1c3b9c2" width="30px" height="30px" onClick={()=>{setShowPicker(val=>!val)}}/>
+          <img className="emoji-icon" src="https://img.freepik.com/free-photo/3d-rendering-emotions_23-2149081943.jpg?w=996&t=st=1693915752~exp=1693916352~hmac=520b6ba6a60c01a082f1b6a721e67b2ac3ba1783e243aedbad92d8f2a1c3b9c2" width="30px" height="30px" onClick={()=>{setShowPicker(val=>!val)}} alt="Emoji picker icon"/>
             <input type="text" id="input-message" placeholder="Send Message..." value={message} onChange={(e) => setmessage(e.target.value)} />
             <button type="submit" id="button" onClick={sendMessage} onKeyPress={(e) => { e.key === "Enter" && sendMessage(); }}><img src="https://cdn-icons-png.flaticon.com/128/3682/3682321.png" alt="not found" height="33px" width="30px"></img></button>
           </div>
